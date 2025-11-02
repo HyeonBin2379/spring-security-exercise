@@ -5,6 +5,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import lombok.ToString;
+import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.project.springsecurityex.domain.MemberVO;
 import org.project.springsecurityex.dto.MemberDTO;
@@ -13,6 +14,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+@Slf4j
 @ToString
 @Service
 @RequiredArgsConstructor
@@ -26,7 +28,10 @@ public class MemberServiceImpl implements MemberService {
     @Transactional
     public void joinMember(MemberDTO memberDTO) {
         // 아이디 중복 검사
-        
+        if (memberMapper.existByID(memberDTO.getMID())) {
+            log.error("중복된 아이디입니다.");
+            return;
+        }
         // 비밀번호 암호화 수행
         String encodedPwd = passwordEncoder.encode(memberDTO.getMPassword());
         memberDTO.setMPassword(encodedPwd);

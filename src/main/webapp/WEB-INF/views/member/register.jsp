@@ -14,13 +14,13 @@
     <h1>Register Page</h1>
     <form name="registerForm"  action="/member/register" method="post">
         <div>
-            <input type="text" name="mID" id="mID" placeholder="ID"/>
+            <input type="text" name="mID" id="mID" placeholder="ID" required/>
         </div>
         <div>
-            <input type="password" name="mPassword" id="mPassword" placeholder="PASSWORD"/>
+            <input type="password" name="mPassword" id="mPassword" placeholder="PASSWORD" required/>
         </div>
         <div>
-            <input type="text" name="mName" id="mName" placeholder="NAME">
+            <input type="text" name="mName" id="mName" placeholder="NAME" required>
         </div>
         <div>
             <input type="hidden" name="mRole" id="mRole" value="${mRole}">

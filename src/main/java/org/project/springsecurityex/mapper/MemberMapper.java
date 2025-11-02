@@ -11,4 +11,6 @@ public interface MemberMapper {
     Optional<MemberVO> findById(String mid);
     boolean update(MemberVO vo);
     boolean delete(String mid);
+
+    boolean existByID(String mID);
 }

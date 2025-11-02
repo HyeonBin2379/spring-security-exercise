@@ -12,6 +12,10 @@
         select * from member where mID = #{mID}
     </select>
 
+    <select id="existByID" parameterType="string" resultType="boolean">
+        select exists (select 1 from member where mID = #{mID})
+    </select>
+
     <insert id="insert" parameterType="org.project.springsecurityex.domain.MemberVO">
         insert into member(mID, mPassword, mName, mRole) values(#{mID}, #{mPassword}, #{mName}, #{mRole})
     </insert>

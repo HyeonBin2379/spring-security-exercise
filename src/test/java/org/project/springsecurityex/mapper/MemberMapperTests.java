@@ -65,4 +65,10 @@ public class MemberMapperTests {
         String mid = "member04";
         Assertions.assertTrue(memberMapper.delete(mid));
     }
+
+    @Test
+    public void testExistID() {
+        String mID = "member00";
+        Assertions.assertTrue(memberMapper.existByID(mID));
+    }
 }
