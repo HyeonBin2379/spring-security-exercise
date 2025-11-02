@@ -23,5 +23,6 @@
             <button type="submit">LOGIN</button>
         </div>
     </form>
+    <button onclick="location.href='/member/register-select'">REGISTER</button>
 </body>
 </html>

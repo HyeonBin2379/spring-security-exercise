@@ -9,6 +9,5 @@
 </h1>
 <br/>
 <a href="/login">Login</a>
-<a href="/member/register">Register</a>
 </body>
 </html>

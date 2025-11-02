@@ -12,7 +12,7 @@
 </head>
 <body>
     <h1>Register Page</h1>
-    <form name="registerForm">
+    <form name="registerForm"  action="/member/register" method="post">
         <div>
             <input type="text" name="mID" id="mID" placeholder="ID"/>
         </div>
@@ -23,7 +23,10 @@
             <input type="text" name="mName" id="mName" placeholder="NAME">
         </div>
         <div>
-            <button type="submit" formaction="/member/register" formmethod="post">REGISTER</button>
+            <input type="hidden" name="mRole" id="mRole" value="${mRole}">
+        </div>
+        <div>
+            <button type="submit">REGISTER</button>
         </div>
     </form>
     <button onclick="location.href='/'">HOME PAGE</button>
