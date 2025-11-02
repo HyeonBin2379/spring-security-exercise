@@ -9,8 +9,8 @@
        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
        http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring.xsd">
 
-    <!--  config 패키지 내부의 스프링 빈 설정 클래스에서 빈으로 설정한 객체를 찾아서 모두 등록  -->
-    <context:component-scan base-package="org.project.springsecurityex">
+    <context:component-scan base-package="org.project.springsecurityex.service"/>
+    <context:component-scan base-package="org.project.springsecurityex.config">
         <context:exclude-filter type="assignable" expression="org.project.springsecurityex.config.SecurityConfig"/>
     </context:component-scan>
 

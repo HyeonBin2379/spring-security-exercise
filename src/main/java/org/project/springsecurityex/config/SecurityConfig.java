@@ -19,9 +19,10 @@ public class SecurityConfig {
         http.authorizeHttpRequests()
                 .requestMatchers(new DispatcherTypeRequestMatcher(DispatcherType.ERROR), new DispatcherTypeRequestMatcher(DispatcherType.FORWARD)).permitAll()
                 .requestMatchers("/", "/login", "/register", "/resources/**").permitAll()
-                .requestMatchers("/admin/**").hasRole("ADMIN")
-                .requestMatchers("/member/**").hasAnyRole("ADMIN", "USER")
-                .anyRequest().authenticated();
+                .requestMatchers("/admin/**").hasAnyRole("ADMIN", "MANAGER")
+                .requestMatchers("/warehouses/**").hasAnyRole("ADMIN", "MANAGER")
+                .requestMatchers("/member/**").hasAnyRole("ADMIN", "MANAGER", "USER")
+                .anyRequest().permitAll();  // 커스텀 애러 페이지 출력을 허용
 
         http.formLogin();
         http.logout().logoutSuccessUrl("/");
