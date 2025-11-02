@@ -13,7 +13,8 @@ import lombok.ToString;
 @AllArgsConstructor
 public class MemberVO {
 
-    private String mid;
-    private String mpw;
-    private String mname;
+    private String mID;
+    private String mPassword;
+    private String mName;
+    private String mRole;
 }

@@ -12,19 +12,20 @@
 </head>
 <body>
     <h1>Register Page</h1>
-    <form action="/register" method="post">
+    <form name="registerForm">
         <div>
-            <input type="text" name="mid" id="mid" placeholder="ID"/>
+            <input type="text" name="mID" id="mID" placeholder="ID"/>
         </div>
         <div>
-            <input type="text" name="mname" id="mname" placeholder="NAME">
+            <input type="password" name="mPassword" id="mPassword" placeholder="PASSWORD"/>
         </div>
         <div>
-            <input type="password" name="mpw" id="mpw" placeholder="PASSWORD"/>
+            <input type="text" name="mName" id="mName" placeholder="NAME">
         </div>
         <div>
-            <button type="submit">REGISTER</button>
+            <button type="submit" formaction="/member/register" formmethod="post">REGISTER</button>
         </div>
     </form>
+    <button onclick="location.href='/'">HOME PAGE</button>
 </body>
 </html>

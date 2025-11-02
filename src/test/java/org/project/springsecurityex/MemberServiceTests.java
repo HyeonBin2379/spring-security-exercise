@@ -21,9 +21,10 @@ public class MemberServiceTests {
     @Test
     public void testJoinMember() throws Exception {
         MemberDTO dto = MemberDTO.builder()
-                .mid("member05")
-                .mpw("4444")
-                .mname("tester")
+                .mID("member05")
+                .mPassword("4444")
+                .mName("tester")
+                .mRole("COMPANY")
                 .build();
         memberService.joinMember(dto);
     }
@@ -43,9 +44,9 @@ public class MemberServiceTests {
     @Test
     public void testEdit() throws Exception {
         MemberDTO memberDTO = MemberDTO.builder()
-                .mid("member05")
-                .mpw("123456")
-                .mname("updatedTester")
+                .mID("member05")
+                .mPassword("123456")
+                .mName("updatedTester")
                 .build();
         memberService.edit(memberDTO);
     }

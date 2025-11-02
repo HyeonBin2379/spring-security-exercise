@@ -11,6 +11,17 @@
     <title>Title</title>
 </head>
 <body>
-
+    <h1>Login Page</h1>
+    <form action="/loginProcess" method="post" name="loginForm">
+        <div>
+            <input type="text" name="mid" id="mid" placeholder="ID"/>
+        </div>
+        <div>
+            <input type="password" name="mpw" id="mpw" placeholder="PASSWORD"/>
+        </div>
+        <div>
+            <button type="submit">LOGIN</button>
+        </div>
+    </form>
 </body>
 </html>

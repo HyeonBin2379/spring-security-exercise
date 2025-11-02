@@ -9,6 +9,7 @@ import org.modelmapper.ModelMapper;
 import org.project.springsecurityex.domain.MemberVO;
 import org.project.springsecurityex.dto.MemberDTO;
 import org.project.springsecurityex.mapper.MemberMapper;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,10 +20,17 @@ public class MemberServiceImpl implements MemberService {
 
     private final MemberMapper memberMapper;
     private final ModelMapper modelMapper;
+    private final BCryptPasswordEncoder passwordEncoder;
 
     @Override
     @Transactional
     public void joinMember(MemberDTO memberDTO) {
+        // 아이디 중복 검사
+        
+        // 비밀번호 암호화 수행
+        String encodedPwd = passwordEncoder.encode(memberDTO.getMPassword());
+        memberDTO.setMPassword(encodedPwd);
+
         MemberVO memberVO = modelMapper.map(memberDTO, MemberVO.class);
         memberMapper.insert(memberVO);
     }
@@ -48,7 +56,7 @@ public class MemberServiceImpl implements MemberService {
     @Override
     @Transactional
     public void edit(MemberDTO member) {
-        Optional<MemberVO> foundMember = memberMapper.findById(member.getMid());
+        Optional<MemberVO> foundMember = memberMapper.findById(member.getMID());
         if (!foundMember.isPresent()) {
             throw new IllegalArgumentException();
         }

@@ -5,22 +5,22 @@
 <!-- Mapper 인터페이스와 동일한 이름(대소문자도 일치)의 xml을 작성 -->
 <mapper namespace="org.project.springsecurityex.mapper.MemberMapper">
     <select id="findAll" resultType="org.project.springsecurityex.domain.MemberVO">
-        select * from t_member;
+        select * from member;
     </select>
 
     <select id="findById" resultType="org.project.springsecurityex.domain.MemberVO">
-        select * from t_member where mid = #{mid}
+        select * from member where mID = #{mID}
     </select>
 
     <insert id="insert" parameterType="org.project.springsecurityex.domain.MemberVO">
-        insert into t_member(mid, mpw, mname) values(#{mid}, #{mpw}, #{mname})
+        insert into member(mID, mPassword, mName, mRole) values(#{mID}, #{mPassword}, #{mName}, #{mRole})
     </insert>
 
     <update id="update" parameterType="org.project.springsecurityex.domain.MemberVO">
-        update t_member set mpw = #{mpw}, mname = #{mname} where mid = #{mid}
+        update member set mPassword = #{mPassword}, mName = #{mName} where mID = #{mID}
     </update>
 
     <delete id="delete" parameterType="string">
-        delete from t_member where mid = #{mid}
+        delete from member where mID = #{mID}
     </delete>
 </mapper>

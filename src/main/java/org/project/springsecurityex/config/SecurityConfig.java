@@ -16,16 +16,20 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        // 인가 작업: 로그인한 회원의 권한에 따라 접근 가능한 경로의 범위를 설정하는 것
         http.authorizeHttpRequests()
                 .requestMatchers(new DispatcherTypeRequestMatcher(DispatcherType.ERROR), new DispatcherTypeRequestMatcher(DispatcherType.FORWARD)).permitAll()
-                .requestMatchers("/", "/login", "/register", "/resources/**").permitAll()
+                .requestMatchers("/", "/login", "/member/register", "/resources/**").permitAll()
+                .requestMatchers("/member/**").hasAnyRole("ADMIN", "MANAGER", "COMPANY")
                 .requestMatchers("/admin/**").hasAnyRole("ADMIN", "MANAGER")
-                .requestMatchers("/warehouses/**").hasAnyRole("ADMIN", "MANAGER")
-                .requestMatchers("/member/**").hasAnyRole("ADMIN", "MANAGER", "USER")
-                .anyRequest().permitAll();  // 커스텀 애러 페이지 출력을 허용
+                .anyRequest().permitAll();  // ControllerAdvice를 통해 404 에러 처리 -> 유효하지 않은 URL 요청 시 커스텀 에러 페이지 출력
 
-        http.formLogin();
+        // 로그인/로그아웃 처리
+        http.formLogin().loginPage("/login").loginProcessingUrl("/loginProcess").permitAll();
         http.logout().logoutSuccessUrl("/");
+
+        // 사이트 위변조 방지 설정
+        http.csrf().disable();
 
         return http.build();
     }

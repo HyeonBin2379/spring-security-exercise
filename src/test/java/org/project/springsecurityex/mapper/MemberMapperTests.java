@@ -42,9 +42,9 @@ public class MemberMapperTests {
     @Test
     public void testInsert() {
         MemberVO vo = MemberVO.builder()
-                .mid("member04")
-                .mpw("3333")
-                .mname("tester")
+                .mID("member04")
+                .mPassword("3333")
+                .mName("tester")
                 .build();
         memberMapper.insert(vo);
     }
@@ -53,9 +53,9 @@ public class MemberMapperTests {
     public void testUpdate() {
         String mid = "member00";
         MemberVO memberVO = MemberVO.builder()
-                .mid(mid)
-                .mpw("1234")
-                .mname("tester")
+                .mID(mid)
+                .mPassword("1234")
+                .mName("tester")
                 .build();
         Assertions.assertTrue(memberMapper.update(memberVO));
     }
