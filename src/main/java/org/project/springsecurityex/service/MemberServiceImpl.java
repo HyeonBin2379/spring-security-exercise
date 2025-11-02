@@ -75,4 +75,14 @@ public class MemberServiceImpl implements MemberService {
     public void remove(String mid) {
         memberMapper.delete(mid);
     }
+
+    // [임시 테스트용 메서드 추가]
+    public void checkPassword(String rawPassword, String encodedPassword) {
+        boolean matches = passwordEncoder.matches(rawPassword, encodedPassword);
+        log.info("========== PASSWORD TEST ==========");
+        log.info("Raw: {}", rawPassword);
+        log.info("Encoded: {}", encodedPassword);
+        log.info("Result: {}", matches);
+        log.info("===================================");
+    }
 }

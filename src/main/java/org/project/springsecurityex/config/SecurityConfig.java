@@ -1,6 +1,7 @@
 package org.project.springsecurityex.config;
 
 import javax.servlet.DispatcherType;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -13,6 +14,7 @@ import org.springframework.security.web.util.matcher.DispatcherTypeRequestMatche
 @Slf4j
 @Configuration
 @EnableWebSecurity
+@RequiredArgsConstructor
 public class SecurityConfig {
 
     @Bean
@@ -21,13 +23,20 @@ public class SecurityConfig {
         http.authorizeHttpRequests()
                 .requestMatchers(new DispatcherTypeRequestMatcher(DispatcherType.ERROR), new DispatcherTypeRequestMatcher(DispatcherType.FORWARD)).permitAll()
                 .requestMatchers(AntPathRequestMatcher.antMatcher("/member/register-select"), AntPathRequestMatcher.antMatcher("/member/register")).permitAll()
-                .requestMatchers("/", "/login", "/resources/**").permitAll()
+                .requestMatchers("/", "/login", "/loginProcess", "/resources/**").permitAll()
                 .requestMatchers(AntPathRequestMatcher.antMatcher("/member/**")).hasAnyRole("ADMIN", "MANAGER", "COMPANY")
                 .requestMatchers("/admin/**").hasAnyRole("ADMIN", "MANAGER")
                 .anyRequest().permitAll();  // ControllerAdvice를 통해 404 에러 처리 -> 유효하지 않은 URL 요청 시 커스텀 에러 페이지 출력
 
         // 로그인/로그아웃 처리
-        http.formLogin().loginPage("/login").loginProcessingUrl("/loginProcess").permitAll();
+        http.formLogin()
+                .loginPage("/login")
+                .usernameParameter("mID")
+                .passwordParameter("mPassword")
+                .loginProcessingUrl("/loginProcess")
+                .defaultSuccessUrl("/", true)
+                .permitAll();
+
         http.logout().logoutSuccessUrl("/");
 
         // 사이트 위변조 방지 설정

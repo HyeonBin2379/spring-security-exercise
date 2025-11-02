@@ -5,8 +5,9 @@
     <title>JSP - Hello World</title>
 </head>
 <body>
-<h1><%= "Hello World!" %>
-</h1>
+<h1><%= "Hello World!" %></h1>
+<p>${loginID}</p>
+<p>${role}</p>
 <br/>
 <a href="/login">Login</a>
 </body>
