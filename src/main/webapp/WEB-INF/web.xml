@@ -30,9 +30,14 @@
 
     <!--  초기 세팅 지정2: 예외 처리 핸들러를 찾을 수 없으면 예외 throw -->
     <init-param>
-      <param-name>throwExceptionIfNoHandlerFound</param-name>
-      <param-value>true</param-value>
+      <param-name>
+        throwExceptionIfNoHandlerFound
+      </param-name>
+      <param-value>
+        true
+      </param-value>
     </init-param>
+
     <!--  웹 애플리케이션 구동 시 서블릿 등록 우선순위 지정 -->
     <load-on-startup>1</load-on-startup>
   </servlet>

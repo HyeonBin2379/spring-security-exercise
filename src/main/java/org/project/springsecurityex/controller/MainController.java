@@ -16,15 +16,6 @@ public class MainController {
 
     @GetMapping("/")
     public String home(Model model) {
-        String id = SecurityContextHolder.getContext().getAuthentication().getName();
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
-        Iterator<? extends GrantedAuthority> iter = authorities.iterator();
-        GrantedAuthority auth = iter.next();
-        String role = auth.getAuthority();
-
-        model.addAttribute("loginID", id);
-        model.addAttribute("role", role);
         return "index";
     }
 }

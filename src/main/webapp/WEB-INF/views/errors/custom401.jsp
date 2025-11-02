@@ -1,17 +1,17 @@
 <%--
   Created by IntelliJ IDEA.
-  User: a
-  Date: 2025-10-29
-  Time: 오전 11:15
+  User: USER
+  Date: 2025-11-03
+  Time: 오전 1:21
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Custom Not_Found Page</title>
+    <title>Title</title>
 </head>
 <body>
-    <h1>Custom Not_Found Page</h1>
-    Oops! 페이지를 찾을 수 없습니다.
+    <h1>Custom Unauthorized</h1>
+    Oops! 인증에 실패했습니다.
 </body>
 </html>

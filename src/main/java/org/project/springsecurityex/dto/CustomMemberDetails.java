@@ -3,11 +3,13 @@ package org.project.springsecurityex.dto;
 import java.util.ArrayList;
 import java.util.Collection;
 import lombok.Data;
+import lombok.extern.slf4j.Slf4j;
 import org.project.springsecurityex.domain.MemberVO;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+@Slf4j
 @Data
 public class CustomMemberDetails implements UserDetails {
 
@@ -20,17 +22,20 @@ public class CustomMemberDetails implements UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         Collection<GrantedAuthority> collection = new ArrayList<>();
+        log.info(memberVO.getMRole());
         collection.add(new SimpleGrantedAuthority("ROLE_" + memberVO.getMRole()));
         return collection;
     }
 
     @Override
     public String getPassword() {
+        log.info(memberVO.getMPassword());
         return memberVO.getMPassword();
     }
 
     @Override
     public String getUsername() {
+        log.info(memberVO.getMID());
         return memberVO.getMID();
     }
 

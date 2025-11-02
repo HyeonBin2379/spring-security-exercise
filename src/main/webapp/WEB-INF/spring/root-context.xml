@@ -47,7 +47,6 @@
     <tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="true"/>
 
     <!--  MyBatis를 사용하기 위한 SqlSessionFactory를 스프링 빈으로 등록  -->
-    <!--    -->
     <mybatis:scan base-package="org.project.springsecurityex.mapper"/>
 
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
