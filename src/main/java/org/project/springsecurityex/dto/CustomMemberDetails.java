@@ -2,6 +2,7 @@ package org.project.springsecurityex.dto;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.project.springsecurityex.domain.MemberVO;
@@ -21,21 +22,18 @@ public class CustomMemberDetails implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        Collection<GrantedAuthority> collection = new ArrayList<>();
-        log.info(memberVO.getMRole());
+        List<GrantedAuthority> collection = new ArrayList<>();
         collection.add(new SimpleGrantedAuthority("ROLE_" + memberVO.getMRole()));
         return collection;
     }
 
     @Override
     public String getPassword() {
-        log.info(memberVO.getMPassword());
         return memberVO.getMPassword();
     }
 
     @Override
     public String getUsername() {
-        log.info(memberVO.getMID());
         return memberVO.getMID();
     }
 

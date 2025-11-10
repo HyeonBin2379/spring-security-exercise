@@ -10,5 +10,4 @@ public interface MemberService {
     MemberDTO get(String mid);
     void edit(MemberDTO member);
     void remove(String mid);
-    void checkPassword(String rawPassword, String encodedPassword);
 }
