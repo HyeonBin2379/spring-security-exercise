@@ -12,7 +12,7 @@
 </head>
 <body>
     <h1>Register Page</h1>
-    <form name="registerForm"  action="/member/register" method="post">
+    <form name="registerForm"  action="/auth/register" method="post">
         <div>
             <input type="text" name="mID" id="mID" placeholder="ID" required/>
         </div>
@@ -29,6 +29,6 @@
             <button type="submit">REGISTER</button>
         </div>
     </form>
-    <button onclick="location.href='/'">HOME PAGE</button>
+    <button onclick="location.href='/index'">HOME PAGE</button>
 </body>
 </html>

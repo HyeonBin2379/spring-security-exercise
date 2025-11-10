@@ -12,7 +12,7 @@
 </head>
 <body>
     <h1>Login Page</h1>
-    <form action="/loginProcess" method="post" name="loginForm">
+    <form action="/auth/loginProcess" method="post" name="loginForm">
         <div>
             <input type="text" name="mID" id="mID" placeholder="ID"/>
         </div>
@@ -23,6 +23,6 @@
             <button type="submit">LOGIN</button>
         </div>
     </form>
-    <button onclick="location.href='/member/register-select'">REGISTER</button>
+    <button onclick="location.href='/auth/register-select'">REGISTER</button>
 </body>
 </html>

@@ -12,7 +12,7 @@
 </head>
 <body>
     <h1>Register Type Select</h1>
-    <form action="/member/register" name="registerSelect" method="get">
+    <form action="/auth/register" name="registerSelect" method="get">
         <div>
             <label for="roleChoice1">고객사</label>
             <input type="radio" name="mRole" id="roleChoice1" value="COMPANY" checked>
@@ -29,6 +29,6 @@
             <button type="submit">SELECT</button>
         </div>
     </form>
-    <button onclick="location.href='/'">HOME PAGE</button>
+    <button onclick="location.href='/index'">HOME PAGE</button>
 </body>
 </html>
