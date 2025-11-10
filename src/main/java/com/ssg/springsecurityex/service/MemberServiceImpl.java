@@ -1,78 +1,98 @@
 package com.ssg.springsecurityex.service;
 
+import com.ssg.springsecurityex.domain.CompanyVO;
+import com.ssg.springsecurityex.domain.DeliverymanVO;
+import com.ssg.springsecurityex.domain.ManagerVO;
+import com.ssg.springsecurityex.domain.UserVO;
+import com.ssg.springsecurityex.dto.CompanyDetailDTO;
+import com.ssg.springsecurityex.dto.DeliverymanDTO;
+import com.ssg.springsecurityex.dto.ManagerDetailDTO;
+import com.ssg.springsecurityex.dto.UserCriteria;
+import com.ssg.springsecurityex.dto.UserDetailDTO;
+import com.ssg.springsecurityex.dto.UserInfoUpdateDTO;
+import com.ssg.springsecurityex.dto.UserPageDTO;
+import com.ssg.springsecurityex.dto.UserStatUpdateDTO;
+import com.ssg.springsecurityex.mapper.MemberMapper;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
-import lombok.ToString;
-import lombok.extern.slf4j.Slf4j;
+import lombok.extern.log4j.Log4j2;
 import org.modelmapper.ModelMapper;
-import com.ssg.springsecurityex.domain.MemberVO;
-import com.ssg.springsecurityex.dto.MemberDTO;
-import com.ssg.springsecurityex.mapper.MemberMapper;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
-@Slf4j
-@ToString
+@Log4j2
 @Service
 @RequiredArgsConstructor
 public class MemberServiceImpl implements MemberService {
 
     private final MemberMapper memberMapper;
     private final ModelMapper modelMapper;
-    private final BCryptPasswordEncoder passwordEncoder;
 
     @Override
-    @Transactional
-    public void joinMember(MemberDTO memberDTO) {
-        // 아이디 중복 검사
-        if (memberMapper.existByID(memberDTO.getMID())) {
-            log.error("중복된 아이디입니다.");
-            return;
-        }
-        // 비밀번호 암호화 수행
-        String encodedPwd = passwordEncoder.encode(memberDTO.getMPassword());
-        memberDTO.setMPassword(encodedPwd);
-
-        MemberVO memberVO = modelMapper.map(memberDTO, MemberVO.class);
-        memberMapper.insert(memberVO);
-    }
-
-    @Override
-    @Transactional(readOnly = true)
-    public List<MemberDTO> memberList() {
-        List<MemberVO> memberVOList = memberMapper.findAll();
-        return memberVOList.stream()
-                .map(memberVO -> modelMapper.map(memberVO, MemberDTO.class))
+    public UserPageDTO<UserDetailDTO> getUserList(UserCriteria userCriteria) {
+        List<UserVO> userList = memberMapper.selectUsers(userCriteria);
+        List<UserDetailDTO> userDetails = userList.stream()
+                .map(userVO -> modelMapper.map(userVO, UserDetailDTO.class))
                 .collect(Collectors.toList());
+        int total = memberMapper.getCount(userCriteria);
+
+        return UserPageDTO.<UserDetailDTO>builder()
+                .cri(userCriteria)
+                .dtoList(userDetails)
+                .total(total)
+                .build();
+    }
+
+    // 회원 리스트 조회 시, 승인대기/휴면상태/휴면대기인 회원의 정보를 관리자가 확인할 때 필요
+    @Override
+    public UserDetailDTO getUserById(String userId) {
+        UserVO userVO = memberMapper.selectUserById(userId);
+        UserDetailDTO userDetail = modelMapper.map(userVO, UserDetailDTO.class);
+        return userDetail;
     }
 
     @Override
-    @Transactional(readOnly = true)
-    public MemberDTO get(String mid) {
-        Optional<MemberVO> selected = memberMapper.findById(mid);
-        return selected
-                .map(memberVO -> modelMapper.map(memberVO, MemberDTO.class))
-                .orElseThrow(() -> new IllegalArgumentException("검색 실패"));
+    public ManagerDetailDTO getManagerById(String userId) {
+        ManagerVO managerVO = memberMapper.selectManagerById(userId);
+        ManagerDetailDTO managerDetail = modelMapper.map(managerVO, ManagerDetailDTO.class);
+        return managerDetail;
     }
 
     @Override
-    @Transactional
-    public void edit(MemberDTO member) {
-        Optional<MemberVO> foundMember = memberMapper.findById(member.getMID());
-        if (!foundMember.isPresent()) {
-            throw new IllegalArgumentException();
-        }
-        MemberVO updated = foundMember.get();
-        modelMapper.map(member, updated);
-        memberMapper.update(updated);
+    public CompanyDetailDTO getCompanyById(String userId) {
+        CompanyVO companyVO = memberMapper.selectCompanyById(userId);
+        CompanyDetailDTO companyDetail = modelMapper.map(companyVO, CompanyDetailDTO.class);
+        return companyDetail;
     }
 
     @Override
-    @Transactional
-    public void remove(String mid) {
-        memberMapper.delete(mid);
+    public DeliverymanDTO getDeliverymenById(String userId) {
+        DeliverymanVO deliverymanVO = memberMapper.selectDeliverymenById(userId);
+        DeliverymanDTO deliverymanDTO = modelMapper.map(deliverymanVO, DeliverymanDTO.class);
+        return deliverymanDTO;
+    }
+
+    @Override
+    public boolean modifyUser(UserInfoUpdateDTO userInfoUpdateDTO) {
+        int affected = memberMapper.updateUser(userInfoUpdateDTO);
+        return affected == 1;
+    }
+
+    @Override
+    public boolean modifyUserStatus(UserStatUpdateDTO userStatUpdateDTO) {
+        int affected = memberMapper.updateUserStatus(userStatUpdateDTO);
+        return affected == 1;
+    }
+
+    @Override
+    public boolean deactivateUser(String currentId) {
+        int affected = memberMapper.deleteUser(currentId);
+        return affected == 1;
+    }
+
+    @Override
+    public boolean deactivateUserByAdmin(String targetId) {
+        int affected = memberMapper.deleteUserByAdmin(targetId);
+        return affected == 1;
     }
 }

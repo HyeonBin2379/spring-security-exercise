@@ -14,16 +14,16 @@
     <h1>Register Page</h1>
     <form name="registerForm"  action="/auth/register" method="post">
         <div>
-            <input type="text" name="mID" id="mID" placeholder="ID" required/>
+            <input type="text" name="userId" id="userId" placeholder="ID" required/>
         </div>
         <div>
-            <input type="password" name="mPassword" id="mPassword" placeholder="PASSWORD" required/>
+            <input type="password" name="userPwd" id="userPwd" placeholder="PASSWORD" required/>
         </div>
         <div>
-            <input type="text" name="mName" id="mName" placeholder="NAME" required>
+            <input type="text" name="userName" id="userName" placeholder="NAME" required>
         </div>
         <div>
-            <input type="hidden" name="mRole" id="mRole" value="${mRole}">
+            <input type="hidden" name="userRole" id="userRole" value="${userRole}">
         </div>
         <div>
             <button type="submit">REGISTER</button>

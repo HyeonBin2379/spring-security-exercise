@@ -1,9 +1,8 @@
 package com.ssg.springsecurityex.service;
 
-import java.util.Optional;
+import com.ssg.springsecurityex.domain.UserVO;
 import lombok.RequiredArgsConstructor;
-import com.ssg.springsecurityex.domain.MemberVO;
-import com.ssg.springsecurityex.dto.CustomMemberDetails;
+import com.ssg.springsecurityex.dto.CustomUserDetails;
 import com.ssg.springsecurityex.mapper.MemberMapper;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -18,9 +17,10 @@ public class CustomUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Optional<MemberVO> userData = memberMapper.findById(username);
-        return userData
-                .map(CustomMemberDetails::new)
-                .orElseThrow(() -> new UsernameNotFoundException("사용자를 찾을 수 없습니다."));
+        UserVO userData = memberMapper.selectUserById(username);
+        if (userData == null) {
+            return null;
+        }
+        return new CustomUserDetails(userData);
     }
 }

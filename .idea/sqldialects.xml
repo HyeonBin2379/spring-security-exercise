@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="SqlDialectMappings">
+    <file url="file://$PROJECT_DIR$/src/main/resources/db_sql/member_create_table_view.sql" dialect="MySQL" />
     <file url="file://G:/내 드라이브/공부자료/sql/servletExercise/sqldb_security_member.sql" dialect="MySQL" />
   </component>
 </project>

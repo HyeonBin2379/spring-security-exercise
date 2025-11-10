@@ -1,16 +1,43 @@
 package com.ssg.springsecurityex.mapper;
 
+import com.ssg.springsecurityex.domain.CompanyVO;
+import com.ssg.springsecurityex.domain.DeliverymanVO;
+import com.ssg.springsecurityex.domain.ManagerVO;
+import com.ssg.springsecurityex.domain.UserVO;
+import com.ssg.springsecurityex.dto.FindIDDTO;
+import com.ssg.springsecurityex.dto.FindIDResultDTO;
+import com.ssg.springsecurityex.dto.UserCriteria;
+import com.ssg.springsecurityex.dto.UserDetailDTO;
+import com.ssg.springsecurityex.dto.UserInfoUpdateDTO;
+import com.ssg.springsecurityex.dto.UserStatUpdateDTO;
 import java.util.List;
-import java.util.Optional;
-import com.ssg.springsecurityex.domain.MemberVO;
+import org.apache.ibatis.annotations.Param;
 
 public interface MemberMapper {
 
-    void insert(MemberVO vo);
-    List<MemberVO> findAll();
-    Optional<MemberVO> findById(String mid);
-    boolean update(MemberVO vo);
-    boolean delete(String mid);
+    // 회원 리스트 출력(필터링 옵션 지정 - 관리자 전용)
+    List<UserVO> selectUsers(@Param("cri") UserCriteria criteria);
 
-    boolean existByID(String mID);
+    // 회원 리스트에서의 회원정보 조회 - 창고관리자, 총관리자 전용기능
+    // (승인대기, 휴면상태, 휴면대기 회원도 조회해야 하므로 users에서 조회)
+    UserVO selectUserById(@Param("userId") String userId);
+
+    // 현재 로그인한 회원정보 조회
+    ManagerVO selectManagerById(@Param("userId") String userId);
+    CompanyVO selectCompanyById(@Param("userId") String userId);
+    DeliverymanVO selectDeliverymenById(@Param("userId") String userId);
+
+    int getCount(@Param("cri") UserCriteria criteria);
+
+    int insertUser(@Param("userInfo") UserDetailDTO userDetailDTO);
+
+    // 회원정보 변경
+    // 변경된 비밀번호는 서비스 계층에서 반드시 암호화되어 전달되어야 하므로 기존의 updateUser() 메서드를 재사용
+    int updateUser(@Param("userInfo") UserInfoUpdateDTO userInfoUpdateDTO);
+    int updateUserStatus(@Param("userStat") UserStatUpdateDTO userStatUpdateDTO);      // 회원상태 변경(총관리자 전용)
+
+    int deleteUser(@Param("currentId") String currentId);         // 휴면회원 전환 신청
+    int deleteUserByAdmin(@Param("targetId") String targetId);   // 휴면회원 전환(총관리자 전용)
+
+    FindIDResultDTO findUserId(@Param("userInfo") FindIDDTO findIDDTO);
 }

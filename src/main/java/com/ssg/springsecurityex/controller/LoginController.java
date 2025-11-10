@@ -1,5 +1,6 @@
 package com.ssg.springsecurityex.controller;
 
+import com.ssg.springsecurityex.dto.UserDetailDTO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import com.ssg.springsecurityex.dto.MemberDTO;
@@ -24,25 +25,25 @@ public class LoginController {
     }
 
     @GetMapping("/register-select")
-    public void selectRole(String mRole, Model model) {
+    public void selectRole(String userRole, Model model) {
         log.info("select register role ...");
-        model.addAttribute("mRole", mRole);
+        model.addAttribute("userRole", userRole);
     }
 
     @GetMapping("/register")
-    public void registerGET(String mRole, Model model) {
+    public void registerGET(String userRole, Model model) {
         log.info("GET member register ...");
-        model.addAttribute("mRole", mRole);
+        model.addAttribute("userRole", userRole);
     }
 
     @PostMapping("/register")
-    public String registerPost(MemberDTO memberDTO) {
-        log.info(memberDTO.toString());
+    public String registerPost(UserDetailDTO userDetailDTO) {
+        log.info(userDetailDTO.toString());
 
         // 회원가입 실패 시 회원가입 페이지로 이동
 
         // 회원가입 성공 시 로그인 페이지로 이동
-        memberService.joinMember(memberDTO);
+//        memberService.joinMember(memberDTO);
         return "redirect:/auth/login";
     }
 }

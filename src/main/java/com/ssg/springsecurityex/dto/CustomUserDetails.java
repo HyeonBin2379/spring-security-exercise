@@ -1,0 +1,57 @@
+package com.ssg.springsecurityex.dto;
+
+import com.ssg.springsecurityex.domain.UserVO;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import lombok.Data;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
+@Slf4j
+@Data
+@RequiredArgsConstructor
+public class CustomUserDetails implements UserDetails {
+
+    private final UserVO userVO;
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        List<GrantedAuthority> collection = new ArrayList<>();
+        collection.add(new SimpleGrantedAuthority("ROLE_" + userVO.getUserRole()));
+        return collection;
+    }
+
+    @Override
+    public String getPassword() {
+        return userVO.getUserPwd();
+    }
+
+    @Override
+    public String getUsername() {
+        return userVO.getUserId();
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {  // 계정 만료
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {   // 계정 잠금
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {  // 자격 증명 만료
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {    // 로그인 가능한 계정인지
+        return true;
+    }
+}

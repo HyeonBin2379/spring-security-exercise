@@ -39,8 +39,8 @@
       login-processing-url="/auth/loginProcess"
       default-target-url="/"
       authentication-failure-url="/auth/login?error=true"
-      username-parameter="mID"
-      password-parameter="mPassword"/>
+      username-parameter="userId"
+      password-parameter="userPwd"/>
     <security:logout logout-url="/auth/logout" logout-success-url="/auth/login?logout=true"/>
     <security:session-management
       invalid-session-url="/auth/login?sessionExpired=true"
