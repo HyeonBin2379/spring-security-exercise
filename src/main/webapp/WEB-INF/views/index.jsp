@@ -10,6 +10,12 @@
 <p>${userId}</p>
 <p>${roleType}</p>
 <br/>
-<a href="/auth/login">Login</a>
+<c:if test="${roleType == 'ROLE_ANONYMOUS'}">
+    <a href="/auth/login">Login</a>
+</c:if>
+<c:if test="${roleType != 'ROLE_ANONYMOUS'}">
+    <a href="/auth/logout">Logout</a>
+</c:if>
+<p></p>
 </body>
 </html>
