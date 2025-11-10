@@ -12,18 +12,18 @@
 </head>
 <body>
     <h1>Register Type Select</h1>
-    <form action="/auth/register" name="registerSelect" method="get">
+    <form action="/auth/register-select" name="registerSelect" method="post">
         <div>
             <label for="roleChoice1">고객사</label>
-            <input type="radio" name="mRole" id="roleChoice1" value="COMPANY" checked>
+            <input type="radio" name="role" id="roleChoice1" value="COMPANY" checked>
         </div>
         <div>
             <label for="roleChoice2">창고관리자</label>
-            <input type="radio" name="mRole" id="roleChoice2" value="MANAGER">
+            <input type="radio" name="role" id="roleChoice2" value="MANAGER">
         </div>
         <div>
             <label for="roleChoice3">총관리자</label>
-            <input type="radio" name="mRole" id="roleChoice3" value="ADMIN">
+            <input type="radio" name="role" id="roleChoice3" value="ADMIN">
         </div>
         <div>
             <button type="submit">SELECT</button>

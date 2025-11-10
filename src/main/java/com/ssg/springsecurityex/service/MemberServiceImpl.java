@@ -18,6 +18,7 @@ import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.modelmapper.ModelMapper;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Log4j2
@@ -25,6 +26,7 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class MemberServiceImpl implements MemberService {
 
+    private final BCryptPasswordEncoder passwordEncoder;
     private final MemberMapper memberMapper;
     private final ModelMapper modelMapper;
 
@@ -70,6 +72,14 @@ public class MemberServiceImpl implements MemberService {
         DeliverymanVO deliverymanVO = memberMapper.selectDeliverymenById(userId);
         DeliverymanDTO deliverymanDTO = modelMapper.map(deliverymanVO, DeliverymanDTO.class);
         return deliverymanDTO;
+    }
+
+    @Override
+    public boolean registerUser(UserDetailDTO userDetailDTO) {
+        String userPwd = userDetailDTO.getUserPwd();
+        userDetailDTO.setUserPwd(passwordEncoder.encode(userPwd));
+        int affected = memberMapper.insertUser(userDetailDTO);
+        return affected == 1;
     }
 
     @Override

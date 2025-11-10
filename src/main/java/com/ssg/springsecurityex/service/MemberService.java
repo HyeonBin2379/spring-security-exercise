@@ -18,6 +18,8 @@ public interface MemberService {
     CompanyDetailDTO getCompanyById(String userId);
     DeliverymanDTO getDeliverymenById(String userId);
 
+    boolean registerUser(UserDetailDTO userDetailDTO);
+
     boolean modifyUser(UserInfoUpdateDTO userInfoUpdateDTO);           // 회원정보 변경
     boolean modifyUserStatus(UserStatUpdateDTO userStatUpdateDTO);     // 회원상태 변경(총관리자 전용)
 

@@ -20,7 +20,25 @@
             <input type="password" name="userPwd" id="userPwd" placeholder="PASSWORD" required/>
         </div>
         <div>
+            <input type="text" name="userCompanyName" id="userCompanyName" placeholder="COMPANY_NAME">
+        </div>
+        <div>
             <input type="text" name="userName" id="userName" placeholder="NAME" required>
+        </div>
+        <div>
+            <input type="text" name="userCode" id="userCode" placeholder="USER_CODE" required>
+        </div>
+        <div>
+            <input type="text" name="userPhone" id="userPhone" placeholder="PHONE" required>
+        </div>
+        <div>
+            <input type="text" name="userEmail" id="userEmail" placeholder="EMAIL" required>
+        </div>
+        <div>
+            <input type="text" name="userRoadAddr" id="userRoadAddr" placeholder="ROAD_ADDR" >
+        </div>
+        <div>
+            <input type="text" name="userDetailAddr" id="userDetailAddr" placeholder="DETAIL_ADDR" >
         </div>
         <div>
             <input type="hidden" name="userRole" id="userRole" value="${userRole}">

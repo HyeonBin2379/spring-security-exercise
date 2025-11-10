@@ -537,7 +537,7 @@
                   </li>
                   <li>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#">로그 아웃</a>
+                    <a class="dropdown-item" href="/auth/logout">로그 아웃</a>
                   </li>
                 </div>
               </ul>
@@ -682,7 +682,7 @@
                   <li>
                     <hr class="dropdown-divider"/>
                   </li>
-                  <li><a class="dropdown-item" href="#">로그아웃</a></li>
+                  <li><a class="dropdown-item" href="/auth/logout">로그아웃</a></li>
                 </ul>
               </li>
 

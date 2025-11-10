@@ -1,5 +1,6 @@
 package com.ssg.springsecurityex.controller;
 
+import com.ssg.springsecurityex.domain.UserRole;
 import com.ssg.springsecurityex.dto.UserDetailDTO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -8,8 +9,10 @@ import com.ssg.springsecurityex.service.MemberService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Slf4j
 @Controller
@@ -25,15 +28,22 @@ public class LoginController {
     }
 
     @GetMapping("/register-select")
-    public void selectRole(String userRole, Model model) {
+    public void selectRole(String role, Model model) {
         log.info("select register role ...");
-        model.addAttribute("userRole", userRole);
+        model.addAttribute("userRole", role);
     }
 
-    @GetMapping("/register")
-    public void registerGET(String userRole, Model model) {
+    @PostMapping("/register-select")
+    public String registerSelect(@RequestParam("role") String role) {
+        log.info("POST register...");
+        return "redirect:/auth/register/"+role;
+    }
+
+    @GetMapping("/register/{role}")
+    public String registerGET(@PathVariable("role") String role, Model model) {
         log.info("GET member register ...");
-        model.addAttribute("userRole", userRole);
+        model.addAttribute("userRole", role);
+        return "auth/register";
     }
 
     @PostMapping("/register")
@@ -43,7 +53,7 @@ public class LoginController {
         // 회원가입 실패 시 회원가입 페이지로 이동
 
         // 회원가입 성공 시 로그인 페이지로 이동
-//        memberService.joinMember(memberDTO);
+        memberService.registerUser(userDetailDTO);
         return "redirect:/auth/login";
     }
 }

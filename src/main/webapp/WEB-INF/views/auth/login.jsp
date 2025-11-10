@@ -14,10 +14,10 @@
     <h1>Login Page</h1>
     <form action="/auth/loginProcess" method="post" name="loginForm">
         <div>
-            <input type="text" name="mID" id="mID" placeholder="ID"/>
+            <input type="text" name="userId" id="userId" placeholder="ID"/>
         </div>
         <div>
-            <input type="password" name="mPassword" id="mPassword" placeholder="PASSWORD"/>
+            <input type="password" name="userPwd" id="userPwd" placeholder="PASSWORD"/>
         </div>
         <div>
             <button type="submit">LOGIN</button>
