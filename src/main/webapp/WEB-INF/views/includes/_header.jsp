@@ -510,7 +510,7 @@
                 </div>
                 <span class="profile-username">
                       <span class="op-7">Hi,</span>
-                      <span class="fw-bold">야옹</span>
+                      <span class="fw-bold">${userId}</span>
                     </span>
               </a>
               <ul class="dropdown-menu dropdown-user animated fadeIn">
@@ -528,7 +528,7 @@
                         <h4>야옹님</h4>
                         <p class="text-muted">meowCoffee@meow.com</p>
                         <a
-                            href="#"
+                            href="/members/profile/${userId}"
                             class="btn btn-xs btn-secondary btn-sm"
                         >프로필 보러가기</a
                         >

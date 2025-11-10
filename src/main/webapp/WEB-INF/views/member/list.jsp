@@ -469,7 +469,10 @@ file="/WEB-INF/views/includes/_header.jsp" %>
                 <th style="width: 10%">회원상태 변경</th>
               </tr>
             </thead>
-            <tbody></tbody>
+            <tbody>
+                <tr>
+                </tr>
+            </tbody>
           </table>
         </div>
       </div>
