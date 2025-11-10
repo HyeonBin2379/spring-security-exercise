@@ -11,7 +11,7 @@
 
     <import resource="security-context.xml"/>
 
-    <context:component-scan base-package="org.project.springsecurityex">
+    <context:component-scan base-package="com.ssg.springsecurityex">
         <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
     </context:component-scan>
 
@@ -46,7 +46,7 @@
     <tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="true"/>
 
     <!--  MyBatis를 사용하기 위한 SqlSessionFactory를 스프링 빈으로 등록  -->
-    <mybatis:scan base-package="org.project.springsecurityex.mapper"/>
+    <mybatis:scan base-package="com.ssg.springsecurityex.mapper"/>
 
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
         <!--  SqlSession을 설정할 데이터소스를 지정  -->

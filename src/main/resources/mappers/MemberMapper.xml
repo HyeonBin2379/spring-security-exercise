@@ -3,12 +3,12 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!-- Mapper 인터페이스와 동일한 이름(대소문자도 일치)의 xml을 작성 -->
-<mapper namespace="org.project.springsecurityex.mapper.MemberMapper">
-    <select id="findAll" resultType="org.project.springsecurityex.domain.MemberVO">
+<mapper namespace="com.ssg.springsecurityex.mapper.MemberMapper">
+    <select id="findAll" resultType="com.ssg.springsecurityex.domain.MemberVO">
         select * from member;
     </select>
 
-    <select id="findById" resultType="org.project.springsecurityex.domain.MemberVO">
+    <select id="findById" resultType="com.ssg.springsecurityex.domain.MemberVO">
         select * from member where mID = #{mID}
     </select>
 
@@ -16,11 +16,11 @@
         select exists (select 1 from member where mID = #{mID})
     </select>
 
-    <insert id="insert" parameterType="org.project.springsecurityex.domain.MemberVO">
+    <insert id="insert" parameterType="com.ssg.springsecurityex.domain.MemberVO">
         insert into member(mID, mPassword, mName, mRole) values(#{mID}, #{mPassword}, #{mName}, #{mRole})
     </insert>
 
-    <update id="update" parameterType="org.project.springsecurityex.domain.MemberVO">
+    <update id="update" parameterType="com.ssg.springsecurityex.domain.MemberVO">
         update member set mPassword = #{mPassword}, mName = #{mName} where mID = #{mID}
     </update>
 

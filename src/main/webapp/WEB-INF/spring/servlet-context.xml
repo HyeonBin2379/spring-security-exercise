@@ -10,7 +10,7 @@
        http://www.springframework.org/schema/mvc https://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
     <!--  controller 패키지 내부의 서블릿 객체들을 빈 객체로 등록  -->
-    <context:component-scan base-package="org.project.springsecurityex.controller"/>
+    <context:component-scan base-package="com.ssg.springsecurityex.controller"/>
 
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <!--  경로명이 /WEB-INF/views/로 시작하고 .jsp로 끝나는 뷰를 바인딩 -->
