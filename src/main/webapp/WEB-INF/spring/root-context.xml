@@ -9,13 +9,12 @@
        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
        http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring.xsd">
 
-    <bean id="bCryptPasswordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"/>
+    <import resource="security-context.xml"/>
 
     <context:component-scan base-package="org.project.springsecurityex">
-        <context:exclude-filter type="assignable" expression="org.project.springsecurityex.config.SecurityConfig"/>
+        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
     </context:component-scan>
 
-    <!--  hikariCP 커넥션풀을 스프링 빈으로 등록  -->
     <bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
         <property name="driverClassName" value="com.mysql.cj.jdbc.Driver"/>
         <property name="jdbcUrl" value="jdbc:mysql://localhost:3306/sqldb?serverTimezone=Asia/Seoul"/>
