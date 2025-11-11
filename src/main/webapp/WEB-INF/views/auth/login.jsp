@@ -17,7 +17,7 @@
                 <div class="row">
                     <div class="col-md-6 mx-auto w-66">
                         <div class="card">
-                            <form action="/auth/loginProcess" method="post" name="loginForm">
+                            <form name="loginForm">
                                 <div class="card-header">
                                     <div class="card-title">회원 로그인</div>
                                 </div>
@@ -35,20 +35,27 @@
                                                 />
                                             </div>
                                             <div class="form-group">
-                                                <label for="userPwd">Password</label>
+                                                <label for="userPwd">Enter Password</label>
                                                 <input
                                                         type="password"
                                                         class="form-control"
                                                         name="userPwd"
                                                         id="userPwd"
-                                                        placeholder="Password"
+                                                        placeholder="Enter Password"
                                                 />
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="card-action d-flex justify-content-center">
-                                    <button type="submit" class="btn btn-primary">로그인</button>
+                                <div class="card-action">
+                                    <div class="d-flex justify-content-evenly mt-0 mb-4 m">
+                                        <button type="submit" formaction="/auth/loginProcess" formmethod="post"  class="btn btn-primary">로그인</button>
+                                        <button type="button" formaction="/auth/register-select" formmethod="get" class="btn btn-secondary">회원가입</button>
+                                    </div>
+                                    <div class="d-flex justify-content-evenly">
+                                        <a href="/auth/forgot-id">아이디 찾기</a>
+                                        <a href="/auth/forgot-pwd">비밀번호 찾기</a>
+                                    </div>
                                 </div>
                             </form>
                         </div>

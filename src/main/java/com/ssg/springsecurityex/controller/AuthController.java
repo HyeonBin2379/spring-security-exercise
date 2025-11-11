@@ -18,6 +18,7 @@ public class AuthController {
 
     private final MemberService memberService;
 
+    // 로그인/로그아웃 경로 설정
     @GetMapping("/login")
     public String login() {
         log.info("GET login page... /login");
@@ -30,6 +31,12 @@ public class AuthController {
         return "auth/login";
     }
 
+    @GetMapping("/logout")
+    public String logout() throws Exception {
+        return "redirect:/auth/logout";
+    }
+
+    // 회원가입 경로 설정
     @GetMapping("/auth/register-select")
     public void selectRole(String role, Model model) {
         log.info("select register role ... /auth/register-select");
@@ -64,10 +71,5 @@ public class AuthController {
         log.info("GET member register ...");
         model.addAttribute("userRole", role);
         return "auth/register";
-    }
-
-    @GetMapping("/logout")
-    public String logout() throws Exception {
-        return "redirect:/auth/logout";
     }
 }
