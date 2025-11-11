@@ -18,8 +18,8 @@ public class AuthController {
 
     private final MemberService memberService;
 
-    // 로그인/로그아웃 경로 설정
-    @GetMapping("/login")
+    // 로그인/로그아웃
+    @GetMapping({"/login", "/auth"})
     public String login() {
         log.info("GET login page... /login");
         return "redirect:/auth/login";
@@ -35,6 +35,7 @@ public class AuthController {
     public String logout() throws Exception {
         return "redirect:/auth/logout";
     }
+
 
     // 회원가입 경로 설정
     @GetMapping("/auth/register-select")
@@ -73,6 +74,8 @@ public class AuthController {
         return "redirect:/auth/login";
     }
 
+
+    // 아이디 찾기
     @GetMapping("/auth/forgot-id")
     public String forgotId() {
         log.info("GET /auth/forgot-id...");
@@ -82,7 +85,7 @@ public class AuthController {
     @PostMapping("/auth/forgot-id")
     public String forgotId(String userRole) {
         log.info("POST /auth/forgot-id...");
-        return "redirect:/auth/forgot-id/" + userRole;
+        return "redirect:/auth/forgot-id" + userRole;
     }
 
     @GetMapping("/auth/forgot-id/{role}")
@@ -105,9 +108,11 @@ public class AuthController {
     }
 
     @GetMapping("/auth/forgot-id/result")
-    public String foundIdResult(@ModelAttribute("foundDTO") FindIDResultDTO foundDTO, Model model) {
+    public String foundIdResult(@ModelAttribute("foundDTO") FindIDResultDTO foundDTO) {
         log.info("GET /auth/forgot-id/result...");
-
         return "auth/search-id-result";
     }
+
+
+    // 비밀번호 찾기(비밀번호 재설정)
 }
