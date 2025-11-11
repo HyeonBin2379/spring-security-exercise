@@ -32,7 +32,7 @@
   <security:http>
     <security:expression-handler ref="webSecurityExpressionHandler"/>
     <security:intercept-url pattern="/" access="permitAll()"/>
-    <security:intercept-url pattern="/auth/**" access="permitAll()"/>
+    <security:intercept-url pattern="/auth/**" access="isAnonymous()"/>
 <!--    <security:intercept-url pattern="/members/**" access="hasAnyRole('COMPANY')"/>-->
     <security:form-login
       login-page="/auth/login"
