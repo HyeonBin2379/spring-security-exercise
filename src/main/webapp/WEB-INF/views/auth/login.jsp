@@ -50,7 +50,7 @@
                                 <div class="card-action">
                                     <div class="d-flex justify-content-evenly mt-0 mb-4 m">
                                         <button type="submit" formaction="/auth/loginProcess" formmethod="post"  class="btn btn-primary">로그인</button>
-                                        <button type="button" formaction="/auth/register-select" formmethod="get" class="btn btn-secondary">회원가입</button>
+                                        <button type="button" onclick="location.href='/auth/register-select'" formmethod="get" class="btn btn-secondary">회원가입</button>
                                     </div>
                                     <div class="d-flex justify-content-evenly">
                                         <a href="/auth/forgot-id">아이디 찾기</a>
