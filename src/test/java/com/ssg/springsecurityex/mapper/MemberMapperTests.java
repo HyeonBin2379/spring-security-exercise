@@ -123,14 +123,17 @@ public class MemberMapperTests {
     }
 
     @Test
+    @DisplayName("입력한 사업자등록번호와 이메일에 해당하는 배송기사 정보 찾기")
     public void testFindDeliverymanId() {
-        String userCode = "120-12-12345";
+        String userCode = "120-10-12345";
         String userEmail = "delivery.park@wms.com";
         FindIDDTO findIDDTO = FindIDDTO.builder()
+                .targetRole(UserRole.DELIVERY.getRoleName())
                 .userCode(userCode)
                 .userEmail(userEmail)
                 .build();
         FindIDResultDTO found = memberMapper.findUserId(findIDDTO);
+        log.info(found.getUserId() + ":" + found.getUserRole());
         Assertions.assertEquals("delivery_park", found.getUserId());
         Assertions.assertEquals(UserRole.DELIVERY, found.getUserRole());
     }
