@@ -31,9 +31,9 @@
 
   <security:http>
     <security:expression-handler ref="webSecurityExpressionHandler"/>
+    <security:intercept-url pattern="/" access="permitAll()"/>
     <security:intercept-url pattern="/auth/**" access="permitAll()"/>
-<!--    <security:intercept-url pattern="/admin/**" access="hasAnyRole('MANAGER')"/>-->
-<!--    <security:intercept-url pattern="/member/**" access="hasAnyRole('COMPANY')"/>-->
+<!--    <security:intercept-url pattern="/members/**" access="hasAnyRole('COMPANY')"/>-->
     <security:form-login
       login-page="/auth/login"
       login-processing-url="/auth/loginProcess"
@@ -42,6 +42,7 @@
       username-parameter="userId"
       password-parameter="userPwd"/>
     <security:logout logout-url="/auth/logout" logout-success-url="/auth/login?logout=true"/>
+    <security:remember-me data-source-ref="dataSource" token-validity-seconds="604800"/>
     <security:session-management
       invalid-session-url="/auth/login?sessionExpired=true"
       session-fixation-protection="changeSessionId">
