@@ -93,9 +93,9 @@ public class MemberMapperTests {
 
     @Test
     @DisplayName("입력한 이메일, 사업자등록번호에 해당하는 거래처 찾기")
-    public void testFindUserId() {
+    public void testFindCompanyId() {
         String userCode = "123-45-67890";
-        String userEmail = "ceo1@meowcoffee.com";
+        String userEmail = "tester2@test.com";
         FindIDDTO findIDDTO = FindIDDTO.builder()
                 .targetRole(UserRole.COMPANY.getRoleName())
                 .userCode(userCode)
@@ -103,8 +103,36 @@ public class MemberMapperTests {
                 .build();
 
         FindIDResultDTO found = memberMapper.findUserId(findIDDTO);
-        Assertions.assertEquals("coffeebiz01", found.getUserId());
+        Assertions.assertEquals("tester2", found.getUserId());
         Assertions.assertEquals(UserRole.COMPANY, found.getUserRole());
+    }
+
+    @Test
+    @DisplayName("입력한 이름, 이메일에 해당하는 창고관리자 찾기")
+    public void testFindManagerId() {
+        String userName = "김철수";
+        String userEmail = "tester3@test.com";
+        FindIDDTO findIDDTO = FindIDDTO.builder()
+                .targetRole(UserRole.MANAGER.getRoleName())
+                .userName(userName)
+                .userEmail(userEmail)
+                .build();
+        FindIDResultDTO found = memberMapper.findUserId(findIDDTO);
+        Assertions.assertEquals("tester3", found.getUserId());
+        Assertions.assertEquals(UserRole.MANAGER, found.getUserRole());
+    }
+
+    @Test
+    public void testFindDeliverymanId() {
+        String userCode = "120-12-12345";
+        String userEmail = "delivery.park@wms.com";
+        FindIDDTO findIDDTO = FindIDDTO.builder()
+                .userCode(userCode)
+                .userEmail(userEmail)
+                .build();
+        FindIDResultDTO found = memberMapper.findUserId(findIDDTO);
+        Assertions.assertEquals("delivery_park", found.getUserId());
+        Assertions.assertEquals(UserRole.DELIVERY, found.getUserRole());
     }
 
     @Test

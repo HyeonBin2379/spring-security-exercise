@@ -116,27 +116,30 @@
   <select id="findUserId" resultType="com.ssg.springsecurityex.dto.FindIDResultDTO">
     select userId, userRole from users
     <choose>
-      <when test="#{userInfo.targetRole == 'COMPANY'}">
+      <when test="userInfo.targetRole == 'COMPANY'">
         where userCode = (
           select comCode
           from companies
           where comCode = #{userInfo.userCode} and comEmail = #{userInfo.userEmail}
         )
       </when>
-      <when test="#{userInfo.targetRole == 'MANAGER' or userInfo.targetRole == 'ADMIN'}">
+      <when test="userInfo.targetRole == 'MANAGER' or userInfo.targetRole == 'ADMIN'">
         where userCode = (
           select managerCode
           from managers
-          where managerName = #{userInfo.userName} and managerEmail = #{userInfo.userEmail}
+          where managerName = #{userInfo.userName}
+            and managerEmail = #{userInfo.userEmail}
+            and managerRole = #{userInfo.targetRole}
         )
       </when>
-      <otherwise>
+      <when test="userInfo.targetRole == 'DELIVERYMAN'">
         where userCode = (
           select delivCode
           from deliverymen
-          where delivCode = #{userInfo.userCode} and comEmail = #{userInfo.userEmail}
+          where delivCode = #{userInfo.userCode}
+            and delivEmail = #{userInfo.userEmail}
         )
-      </otherwise>
+      </when>
     </choose>
   </select>
 

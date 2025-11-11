@@ -4,14 +4,7 @@ import com.ssg.springsecurityex.domain.CompanyVO;
 import com.ssg.springsecurityex.domain.DeliverymanVO;
 import com.ssg.springsecurityex.domain.ManagerVO;
 import com.ssg.springsecurityex.domain.UserVO;
-import com.ssg.springsecurityex.dto.CompanyDetailDTO;
-import com.ssg.springsecurityex.dto.DeliverymanDTO;
-import com.ssg.springsecurityex.dto.ManagerDetailDTO;
-import com.ssg.springsecurityex.dto.UserCriteria;
-import com.ssg.springsecurityex.dto.UserDetailDTO;
-import com.ssg.springsecurityex.dto.UserInfoUpdateDTO;
-import com.ssg.springsecurityex.dto.UserPageDTO;
-import com.ssg.springsecurityex.dto.UserStatUpdateDTO;
+import com.ssg.springsecurityex.dto.*;
 import com.ssg.springsecurityex.mapper.MemberMapper;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -104,5 +97,11 @@ public class MemberServiceImpl implements MemberService {
     public boolean deactivateUserByAdmin(String targetId) {
         int affected = memberMapper.deleteUserByAdmin(targetId);
         return affected == 1;
+    }
+
+    @Override
+    public FindIDResultDTO getUserIdBy(FindIDDTO findIDDTO) {
+        FindIDResultDTO foundID = memberMapper.findUserId(findIDDTO);
+        return foundID;
     }
 }

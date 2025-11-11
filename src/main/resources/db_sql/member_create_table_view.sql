@@ -92,11 +92,11 @@ VALUES
 # 로그인/회원관리 기능을 제외한 WMS의 다른 기능이 배송기사를 조회할 때는 아래의 뷰를 사용
 drop view if exists deliverymen;
 create view deliverymen (
-    delivId, delivName, delivPwd, delivPhone,
+    delivId, delivName, delivPwd, delivPhone, delivEmail,
     delivCode, delivImgPath, delivVhcId, delivVhcModel,
     delivStatus, delivLastLogin
 ) as select
- u.userId, u.userName, u.userPwd, u.userPhone,
+ u.userId, u.userName, u.userPwd, u.userPhone, u.userEmail,
  u.userCode, u.userImgPath, v.vehicleId, v.vehicleModel,
  u.userStatus, u.userLastLogin
 from users u join vehicles v on u.vehicleId = v.vehicleId
