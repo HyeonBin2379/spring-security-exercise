@@ -19,6 +19,7 @@ public class CustomUserDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         UserVO userData = memberMapper.selectUserById(username);
         if (userData != null) {
+            // 여기에 마지막 로그인 날짜 갱신 로직 추가 필요
             return new CustomUserDetails(userData);
         }
         throw new UsernameNotFoundException("사용자를 찾을 수 없습니다.");
