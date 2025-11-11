@@ -42,7 +42,6 @@
       username-parameter="userId"
       password-parameter="userPwd"/>
     <security:logout logout-url="/auth/logout" logout-success-url="/auth/login?logout=true"/>
-    <security:remember-me data-source-ref="dataSource" token-validity-seconds="604800"/>
     <security:session-management
       invalid-session-url="/auth/login?sessionExpired=true"
       session-fixation-protection="changeSessionId">
