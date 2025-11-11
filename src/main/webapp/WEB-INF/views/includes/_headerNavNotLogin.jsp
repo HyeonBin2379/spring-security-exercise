@@ -33,12 +33,12 @@
             <li class="nav-item">
                 <a
                         class="nav-link"
-                        href="#"
+                        href="/auth/register-select"
                         role="button"
                         aria-expanded="false"
                         aria-controls="oc-dashboard"
                 >
-                    <i class="fas fa-truck-loading"></i> 회원가입
+                    <i class="fas fa-user-plus"></i> 회원가입
                 </a>
             </li>
             <li class="nav-item mt-2">
@@ -49,7 +49,7 @@
                         aria-expanded="false"
                         aria-controls="oc-base"
                 >
-                    <i class="fas fa-warehouse"></i> 아이디 찾기
+                    <i class="fas fa-id-card"></i> 아이디 찾기
                 </a>
             </li>
             <li class="nav-item mt-2">
@@ -61,7 +61,7 @@
                         aria-expanded="false"
                         aria-controls="oc-sidebarLayouts"
                 >
-                    <i class="fas fa-dollar-sign"></i> 비밀번호 찾기
+                    <i class="fas fa-key"></i> 비밀번호 찾기
                 </a>
             </li>
         </ul>
