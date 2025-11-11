@@ -4,12 +4,8 @@ import com.ssg.springsecurityex.domain.CompanyVO;
 import com.ssg.springsecurityex.domain.DeliverymanVO;
 import com.ssg.springsecurityex.domain.ManagerVO;
 import com.ssg.springsecurityex.domain.UserVO;
-import com.ssg.springsecurityex.dto.FindIDDTO;
-import com.ssg.springsecurityex.dto.FindIDResultDTO;
-import com.ssg.springsecurityex.dto.UserCriteria;
-import com.ssg.springsecurityex.dto.UserDetailDTO;
-import com.ssg.springsecurityex.dto.UserInfoUpdateDTO;
-import com.ssg.springsecurityex.dto.UserStatUpdateDTO;
+import com.ssg.springsecurityex.dto.*;
+
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
@@ -40,4 +36,5 @@ public interface MemberMapper {
     int deleteUserByAdmin(@Param("targetId") String targetId);   // 휴면회원 전환(총관리자 전용)
 
     FindIDResultDTO findUserId(@Param("userInfo") FindIDDTO findIDDTO);
+    ResetPwdDTO selectUserByIdAndEmail(@Param("userInfo") ForgotPwdDTO forgotPwdDTO);
 }

@@ -143,6 +143,12 @@
     </choose>
   </select>
 
+  <select id="selectUserByIdAndEmail" resultType="com.ssg.springsecurityex.dto.ResetPwdDTO">
+    select userId, userPwd
+    from users
+    where userId = #{userInfo.userId} and userEmail = #{userInfo.userEmail}
+  </select>
+
   <insert id="insertUser" >
     insert into
     users (

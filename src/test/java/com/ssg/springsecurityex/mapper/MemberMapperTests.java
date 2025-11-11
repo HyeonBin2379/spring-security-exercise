@@ -6,12 +6,8 @@ import com.ssg.springsecurityex.domain.ManagerVO;
 import com.ssg.springsecurityex.domain.UserRole;
 import com.ssg.springsecurityex.domain.UserStatus;
 import com.ssg.springsecurityex.domain.UserVO;
-import com.ssg.springsecurityex.dto.FindIDDTO;
-import com.ssg.springsecurityex.dto.FindIDResultDTO;
-import com.ssg.springsecurityex.dto.UserCriteria;
-import com.ssg.springsecurityex.dto.UserDetailDTO;
-import com.ssg.springsecurityex.dto.UserInfoUpdateDTO;
-import com.ssg.springsecurityex.dto.UserStatUpdateDTO;
+import com.ssg.springsecurityex.dto.*;
+
 import java.time.LocalDate;
 import java.util.List;
 import lombok.extern.log4j.Log4j2;
@@ -20,6 +16,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
@@ -92,7 +89,7 @@ public class MemberMapperTests {
     }
 
     @Test
-    @DisplayName("입력한 이메일, 사업자등록번호에 해당하는 거래처 찾기")
+    @DisplayName("입력한 이메일, 사업자등록번호에 해당하는 거래처 아이디 찾기")
     public void testFindCompanyId() {
         String userCode = "123-45-67890";
         String userEmail = "tester2@test.com";
@@ -108,7 +105,7 @@ public class MemberMapperTests {
     }
 
     @Test
-    @DisplayName("입력한 이름, 이메일에 해당하는 창고관리자 찾기")
+    @DisplayName("입력한 이름, 이메일에 해당하는 창고관리자 아이디 찾기")
     public void testFindManagerId() {
         String userName = "김철수";
         String userEmail = "tester3@test.com";
@@ -123,7 +120,7 @@ public class MemberMapperTests {
     }
 
     @Test
-    @DisplayName("입력한 사업자등록번호와 이메일에 해당하는 배송기사 정보 찾기")
+    @DisplayName("입력한 사업자등록번호와 이메일에 해당하는 배송기사 아이디 찾기")
     public void testFindDeliverymanId() {
         String userCode = "120-10-12345";
         String userEmail = "delivery.park@wms.com";
@@ -136,6 +133,20 @@ public class MemberMapperTests {
         log.info(found.getUserId() + ":" + found.getUserRole());
         Assertions.assertEquals("delivery_park", found.getUserId());
         Assertions.assertEquals(UserRole.DELIVERY, found.getUserRole());
+    }
+
+    @Test
+    @DisplayName("입력한 아이디, 이메일에 해당하는 회원의 아이디, 비밀번호 찾기")
+    public void testSelectUserByIdAndEmail() {
+        String userId = "company_happy";
+        String userEmail = "happy@happy.net";
+
+        ForgotPwdDTO forgotPwdDTO = ForgotPwdDTO.builder()
+                .userId(userId)
+                .userEmail(userEmail)
+                .build();
+        ResetPwdDTO resetPwdDTO = memberMapper.selectUserByIdAndEmail(forgotPwdDTO);
+        Assertions.assertNotNull(resetPwdDTO);
     }
 
     @Test
