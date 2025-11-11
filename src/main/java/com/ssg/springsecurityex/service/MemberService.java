@@ -20,4 +20,5 @@ public interface MemberService {
     boolean deactivateUserByAdmin(String targetId);    // 휴면회원 전환(총관리자 전용)
 
     FindIDResultDTO getUserIdBy(FindIDDTO findIDDTO);
+    ResetPwdDTO modifyOriginPwd(ForgotPwdDTO forgotPwdDTO);
 }

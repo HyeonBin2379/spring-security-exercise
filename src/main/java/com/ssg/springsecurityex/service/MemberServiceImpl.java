@@ -104,4 +104,9 @@ public class MemberServiceImpl implements MemberService {
         FindIDResultDTO foundID = memberMapper.findUserId(findIDDTO);
         return foundID;
     }
+
+    @Override
+    public ResetPwdDTO modifyOriginPwd(ForgotPwdDTO forgotPwdDTO) {
+        return null;
+    }
 }
