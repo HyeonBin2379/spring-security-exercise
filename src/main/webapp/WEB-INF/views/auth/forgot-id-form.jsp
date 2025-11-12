@@ -30,6 +30,20 @@
                         <div class="card-body">
                             <div class="row d-flex justify-content-center">
                                 <div class="col-md-12">
+                                    <div class="text-center align-content-center">
+                                        <small id="forgotPwdMsg" class="form-text text-muted">
+                                            <c:choose>
+                                                <c:when test="${targetRole == 'COMPANY' || targetRole == 'DELIVERYMAN'}">
+                                                    <span>아이디를 찾고자 하는 ${targetRole == 'COMPANY' ? '거래처' : '배송기사'}의<br/></span>
+                                                    <span>사업자등록번호와 이메일을 입력해주세요.</span>
+                                                </c:when>
+                                                <c:when test="${targetRole == 'MANAGER' || targetRole == 'ADMIN'}">
+                                                    <span>아이디를 찾고자 하는 ${targetRole == 'MANAGER' ? '창고관리자' : '총관리자'}의<br/></span>
+                                                    <span>이름과 이메일을 입력해주세요.</span>
+                                                </c:when>
+                                            </c:choose>
+                                        </small>
+                                    </div>
                                     <div class="form-group">
                                         <c:choose>
                                             <c:when test="${targetRole == 'COMPANY' || targetRole == 'DELIVERYMAN'}">
@@ -40,6 +54,7 @@
                                                         name="userCode"
                                                         id="userCode"
                                                         placeholder="Enter User Code"
+                                                        required
                                                 />
                                             </c:when>
                                             <c:when test="${targetRole == 'MANAGER' || targetRole == 'ADMIN'}">
@@ -50,6 +65,7 @@
                                                         name="userName"
                                                         id="userName"
                                                         placeholder="Enter User Name"
+                                                        required
                                                 />
                                             </c:when>
                                         </c:choose>
@@ -62,6 +78,7 @@
                                                 name="userEmail"
                                                 id="userEmail"
                                                 placeholder="Enter Email"
+                                                required
                                         />
                                     </div>
                                 </div>

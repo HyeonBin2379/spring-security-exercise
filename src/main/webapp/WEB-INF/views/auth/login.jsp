@@ -31,7 +31,7 @@
                                                         class="form-control"
                                                         name="userId"
                                                         id="userId"
-                                                        placeholder="Enter User ID"
+                                                        placeholder="아이디 입력"
                                                 />
                                             </div>
                                             <div class="form-group">
@@ -41,7 +41,7 @@
                                                         class="form-control"
                                                         name="userPwd"
                                                         id="userPwd"
-                                                        placeholder="Enter Password"
+                                                        placeholder="비밀번호 입력"
                                                 />
                                             </div>
                                         </div>
