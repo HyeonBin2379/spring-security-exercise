@@ -19,7 +19,6 @@ import javax.servlet.http.HttpSession;
 public class AuthController {
 
     private final MemberService memberService;
-    private final PasswordEncoder passwordEncoder;
 
     // 로그인/로그아웃
     @GetMapping({"/login", "/auth"})
@@ -48,7 +47,7 @@ public class AuthController {
     }
 
     @PostMapping("/auth/register-select")
-    public String registerSelect(@RequestParam("role") String role) {
+    public String registerSelect(@RequestParam("userRole") String role) {
         log.info("POST register...");
         return "redirect:/auth/register/"+role;
     }
@@ -67,13 +66,16 @@ public class AuthController {
     }
 
     @PostMapping("/auth/register")
-    public String registerPost(UserDetailDTO userDetailDTO) {
+    public String registerPost(UserDetailDTO userDetailDTO, RedirectAttributes redirectAttributes) {
         log.info(userDetailDTO.toString());
 
         // 회원가입 실패 시 회원가입 페이지로 이동
-
+        boolean result = memberService.registerUser(userDetailDTO);
+        if (!result) {
+            redirectAttributes.addFlashAttribute("registerError", "회원가입에 실패했습니다.");
+            return "redirect:/auth/register-select";
+        }
         // 회원가입 완료 시 로그인 페이지로 이동
-        memberService.registerUser(userDetailDTO);
         return "redirect:/auth/login";
     }
 
