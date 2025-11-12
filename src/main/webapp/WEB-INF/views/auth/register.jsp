@@ -240,6 +240,7 @@ change this template use File | Settings | File Templates. --%>
                                 <button
                                         type="submit"
                                         id="registerBtn"
+                                        onclick="register()"
                                         formaction="/auth/register"
                                         formmethod="post"
                                         class="btn btn-primary"
@@ -256,7 +257,7 @@ change this template use File | Settings | File Templates. --%>
 
         <script>
             function register() {
-                document.forms['registerForm'].addEventListener('submit', async (evt) => {
+                document.forms['registerForm'].addEventListener('submit', (evt) => {
                     evt.preventDefault();
                     evt.stopPropagation();
 
