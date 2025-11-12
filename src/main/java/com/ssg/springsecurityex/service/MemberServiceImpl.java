@@ -77,6 +77,7 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     public boolean modifyUser(UserInfoUpdateDTO userInfoUpdateDTO) {
+        // 현재 비밀번호가 변경되지 않았는지 비교 필요
         int affected = memberMapper.updateUser(userInfoUpdateDTO);
         return affected == 1;
     }
@@ -106,7 +107,16 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    public ResetPwdDTO modifyOriginPwd(ForgotPwdDTO forgotPwdDTO) {
-        return null;
+    public FindIDResultDTO checkUserInfo(ForgotPwdDTO forgotPwdDTO) {
+        FindIDResultDTO foundUser = memberMapper.selectUserByIdAndEmail(forgotPwdDTO);
+        return foundUser;
+    }
+
+    @Override
+    public boolean modifyPwd(ResetPwdDTO resetPwdDTO) {
+        String originalPwd = resetPwdDTO.getNewPwd();
+        resetPwdDTO.setNewPwd(passwordEncoder.encode(originalPwd));
+        int affected = memberMapper.updatePwd(resetPwdDTO);
+        return affected == 1;
     }
 }
