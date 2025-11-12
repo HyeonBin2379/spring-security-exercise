@@ -15,8 +15,8 @@ import lombok.Setter;
 @AllArgsConstructor
 public class FindIDResultDTO {
 
-    private UserRole userRole;
     private String userId;
+    private UserRole userRole;
 
     public void setUserRole(String userRole) {
         this.userRole = Arrays.stream(UserRole.values())

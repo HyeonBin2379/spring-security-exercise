@@ -22,13 +22,14 @@
                                     <div class="card-title">아이디 찾기</div>
                                 </div>
                                 <div class="card-body">
-                                    <div class="text-center">
-                                        <small id="forgotIdMsg" class="form-text text-muted">
-                                            찾으시는 아이디는 <i>${foundDTO.userId}</i> 입니다.
-                                        </small>
-                                    </div>
-                                    <div class="col-md-12 mt-4">
-
+                                    <div class="text-center align-content-center">
+                                        <h6 id="forgotIdMsg">
+                                            <c:choose>
+                                                <c:when test="${foundDTO != null && foundDTO.userId != null}">
+                                                    찾으시는 아이디는 <strong>${foundDTO.userId}</strong> 입니다.
+                                                </c:when>
+                                            </c:choose>
+                                        </h6>
                                     </div>
                                 </div>
                                 <div class="card-action">

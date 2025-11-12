@@ -8,8 +8,11 @@ import lombok.extern.slf4j.Slf4j;
 import com.ssg.springsecurityex.service.MemberService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import javax.servlet.http.HttpSession;
 
 @Slf4j
 @Controller
@@ -85,31 +88,42 @@ public class AuthController {
     @PostMapping("/auth/forgot-id")
     public String forgotId(String userRole) {
         log.info("POST /auth/forgot-id...");
-        return "redirect:/auth/forgot-id" + userRole;
+        return "redirect:/auth/forgot-id/" + userRole;
     }
 
     @GetMapping("/auth/forgot-id/{role}")
-    public String forgotIdSelectRole(@PathVariable("role") String targetRole, Model model) {
+    public String forgotIdSelectRole(@PathVariable("role") String targetRole, HttpSession session, Model model) {
         log.info("GET /auth/forgot-id/" + targetRole);
-
+        if (session.getAttribute("findIdProcessCompleted") != null) {
+            session.removeAttribute("findIdProcessCompleted");
+            return "redirect:/auth/forgot-id";
+        }
         model.addAttribute("targetRole", targetRole);
         return "auth/forgot-id-form";
     }
 
     @PostMapping("/auth/forgot-id/result")
-    public String searchIdByUserInfo(FindIDDTO findIDDTO, RedirectAttributes redirectAttributes) {
+    public String searchIdByUserInfo(FindIDDTO findIDDTO, HttpSession session, RedirectAttributes redirectAttributes) {
         log.info("POST /auth/forgot-id/result...");
         log.info("findInput: " + findIDDTO.getUserCode());
         FindIDResultDTO foundDTO = memberService.getUserIdBy(findIDDTO);
-        log.info("found userId: " + foundDTO.getUserId());
 
+        if (foundDTO == null || foundDTO.getUserId() == null) {
+            redirectAttributes.addFlashAttribute("error", "해당하는 아이디를 찾을 수 없습니다.");
+            return "redirect:/auth/forgot-id";
+        }
+        session.setAttribute("findIdProcessCompleted", true);
         redirectAttributes.addFlashAttribute("foundDTO", foundDTO);
         return "redirect:/auth/forgot-id/result";
     }
 
     @GetMapping("/auth/forgot-id/result")
-    public String foundIdResult(@ModelAttribute("foundDTO") FindIDResultDTO foundDTO) {
+    public String foundIdResult(Model model) {
         log.info("GET /auth/forgot-id/result...");
+        if (!model.containsAttribute("foundDTO")) {
+            log.warn("비정상적인 주소 입력입니다. 아이디 찾기의 첫 페이지로 이동합니다.");
+            return "redirect:/auth/forgot-id";
+        }
         return "auth/search-id-result";
     }
 

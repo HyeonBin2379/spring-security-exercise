@@ -85,4 +85,11 @@
                     </div>
                 </div>
 
+                <c:if test="${not empty error}" >
+                    <script>
+                        const errorMessage = "<c:out value='${error}'/>"
+                        alert(errorMessage)
+                    </script>
+                </c:if>
+
 <%@ include file="/WEB-INF/views/includes/_footer.jsp" %>
