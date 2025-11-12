@@ -36,5 +36,6 @@ public interface MemberMapper {
     int deleteUserByAdmin(@Param("targetId") String targetId);   // 휴면회원 전환(총관리자 전용)
 
     FindIDResultDTO findUserId(@Param("userInfo") FindIDDTO findIDDTO);
-    ResetPwdDTO selectUserByIdAndEmail(@Param("userInfo") ForgotPwdDTO forgotPwdDTO);
+    FindIDResultDTO selectUserByIdAndEmail(@Param("userInfo") ForgotPwdDTO forgotPwdDTO);
+    int updatePwd(@Param("resetPwd") ResetPwdDTO resetPwdDTO);
 }

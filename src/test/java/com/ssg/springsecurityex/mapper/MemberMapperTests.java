@@ -136,7 +136,7 @@ public class MemberMapperTests {
     }
 
     @Test
-    @DisplayName("입력한 아이디, 이메일에 해당하는 회원의 아이디, 비밀번호 찾기")
+    @DisplayName("입력한 아이디, 이메일에 해당하는 회원의 아이디 찾기")
     public void testSelectUserByIdAndEmail() {
         String userId = "company_happy";
         String userEmail = "happy@happy.net";
@@ -145,8 +145,8 @@ public class MemberMapperTests {
                 .userId(userId)
                 .userEmail(userEmail)
                 .build();
-        ResetPwdDTO resetPwdDTO = memberMapper.selectUserByIdAndEmail(forgotPwdDTO);
-        Assertions.assertNotNull(resetPwdDTO);
+        FindIDResultDTO findIDResultDTO = memberMapper.selectUserByIdAndEmail(forgotPwdDTO);
+        Assertions.assertNotNull(findIDResultDTO);
     }
 
     @Test
@@ -207,6 +207,17 @@ public class MemberMapperTests {
     public void testDeleteUserByAdmin() {
         String targetId = "manager01";
         int affected = memberMapper.deleteUserByAdmin(targetId);
+        Assertions.assertEquals(1, affected);
+    }
+
+    @Test
+    @DisplayName("비밀번호 변경 작업 수행")
+    public void testUpdatePwd() {
+        ResetPwdDTO resetPwdDTO = ResetPwdDTO.builder()
+                .targetId("company5678")
+                .newPwd("12345")
+                .build();
+        int affected = memberMapper.updatePwd(resetPwdDTO);
         Assertions.assertEquals(1, affected);
     }
 }

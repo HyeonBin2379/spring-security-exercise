@@ -143,8 +143,8 @@
     </choose>
   </select>
 
-  <select id="selectUserByIdAndEmail" resultType="com.ssg.springsecurityex.dto.ResetPwdDTO">
-    select userId, userPwd
+  <select id="selectUserByIdAndEmail" resultType="com.ssg.springsecurityex.dto.FindIDResultDTO">
+    select userId, userRole
     from users
     where userId = #{userInfo.userId} and userEmail = #{userInfo.userEmail}
   </select>
@@ -197,5 +197,9 @@
     update users
     set userStatus = 'DEACTIVATED'
     where userId = #{targetId} and userStatus in ('APPROVAL', 'WAITING_DEACTIVATE')
+  </update>
+
+  <update id="updatePwd">
+    update users set userPwd = #{resetPwd.newPwd} where userId = #{resetPwd.targetId}
   </update>
 </mapper>
