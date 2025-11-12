@@ -38,4 +38,5 @@ public interface MemberMapper {
     FindIDResultDTO findUserId(@Param("userInfo") FindIDDTO findIDDTO);
     FindIDResultDTO selectUserByIdAndEmail(@Param("userInfo") ForgotPwdDTO forgotPwdDTO);
     int updatePwd(@Param("resetPwd") ResetPwdDTO resetPwdDTO);
+    boolean existsId(String userId);
 }

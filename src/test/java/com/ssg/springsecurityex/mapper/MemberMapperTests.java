@@ -150,6 +150,14 @@ public class MemberMapperTests {
     }
 
     @Test
+    @DisplayName("입력한 아이디를 사용하는 회원이 이미 존재")
+    public void testExistUser() {
+        String userId = "company_happy";
+        boolean result = memberMapper.existsId(userId);
+        Assertions.assertTrue(result);
+    }
+
+    @Test
     @DisplayName("새로운 거래처 회원 등록")
     public void testInsertUser() {
         UserDetailDTO newUser = UserDetailDTO.builder()

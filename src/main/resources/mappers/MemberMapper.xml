@@ -97,6 +97,10 @@
     <include refid="search"/>
   </select>
 
+  <select id="existsId" resultType="boolean">
+    select exists(select 1 from users where userId = #{userId})
+  </select>
+
   <select id="selectUserById" resultMap="userResultMap">
     select * from users where userId = #{userId}
   </select>
