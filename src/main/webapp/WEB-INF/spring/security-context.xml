@@ -41,7 +41,7 @@
       authentication-failure-url="/auth/login?error=true"
       username-parameter="userId"
       password-parameter="userPwd"/>
-    <security:logout logout-url="/auth/logout" logout-success-url="/auth/login?logout=true"/>
+    <security:logout logout-url="/auth/logout" invalidate-session="true" logout-success-url="/auth/login?logout=true"/>
     <security:session-management
       invalid-session-url="/auth/login?sessionExpired=true"
       session-fixation-protection="changeSessionId">
