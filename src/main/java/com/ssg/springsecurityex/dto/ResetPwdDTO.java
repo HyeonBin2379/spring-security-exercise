@@ -1,6 +1,5 @@
 package com.ssg.springsecurityex.dto;
 
-import com.ssg.springsecurityex.domain.UserRole;
 import lombok.*;
 
 @Data
@@ -9,7 +8,6 @@ import lombok.*;
 @NoArgsConstructor
 public class ResetPwdDTO {
 
-    private String userId;
-    private String userPwd;
-    private UserRole userRole;
+    private String targetId;
+    private String newPwd;
 }
