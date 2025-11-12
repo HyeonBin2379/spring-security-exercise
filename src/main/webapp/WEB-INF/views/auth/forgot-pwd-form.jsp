@@ -61,4 +61,10 @@
             </div>
         </div>
 
+        <c:if test="${not empty resetPwdError}" >
+        <script>
+            const errorMessage = "<c:out value='${resetPwdError}'/>"
+            alert(errorMessage)
+        </script>
+        </c:if>
 <%@ include file="/WEB-INF/views/includes/_footer.jsp" %>
