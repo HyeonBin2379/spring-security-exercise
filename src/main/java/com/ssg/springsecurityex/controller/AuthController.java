@@ -1,14 +1,13 @@
 package com.ssg.springsecurityex.controller;
 
-import com.ssg.springsecurityex.dto.FindIDDTO;
-import com.ssg.springsecurityex.dto.FindIDResultDTO;
-import com.ssg.springsecurityex.dto.UserDetailDTO;
+import com.ssg.springsecurityex.dto.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import com.ssg.springsecurityex.service.MemberService;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -20,6 +19,7 @@ import javax.servlet.http.HttpSession;
 public class AuthController {
 
     private final MemberService memberService;
+    private final PasswordEncoder passwordEncoder;
 
     // 로그인/로그아웃
     @GetMapping({"/login", "/auth"})
@@ -129,4 +129,48 @@ public class AuthController {
 
 
     // 비밀번호 찾기(비밀번호 재설정)
+    @GetMapping("/auth/forgot-pwd")
+    public String showForgotPwdForm(HttpSession session) {
+        log.info("GET /auth/forgot-pwd...");
+        // 비밀번호 찾기를 수행할 아이디, 이메일 입력창 출력
+        if (session.getAttribute("resetPwdProcessCompleted") != null) {
+            session.removeAttribute("resetPwdProcessCompleted");
+            return "redirect:/auth/login";
+        }
+        return "auth/forgot-pwd-form";
+    }
+
+    @PostMapping("/auth/forgot-pwd")
+    public String submitForgotPwdForm(ForgotPwdDTO forgotPwdDTO, HttpSession session, RedirectAttributes redirectAttributes) {
+        log.info("POST /auth/forgot-pwd...");
+        FindIDResultDTO findIDResultDTO = memberService.checkUserInfo(forgotPwdDTO);
+        if (findIDResultDTO == null) {
+            redirectAttributes.addFlashAttribute("resetPwdError", "해당하는 회원이 없습니다.");
+            return "redirect:/auth/forgot-pwd";
+        }
+        session.setAttribute("resetPwdProcessCompleted", true);
+        redirectAttributes.addFlashAttribute("foundDTO", findIDResultDTO);
+        return "redirect:/auth/reset-pwd";
+    }
+
+    @GetMapping("/auth/reset-pwd")
+    public String showResetPwdForm() {  // 비밀번호 변경 페이지 출력
+        log.info("GET /auth/reset-pwd...");
+        return "auth/reset-pwd-form";
+    }
+
+    @PutMapping("/auth/reset-pwd")
+    public ResponseEntity<UserDetailDTO> resetPwd(@RequestBody ResetPwdDTO resetPwdDTO, HttpSession session) {
+        log.info("PUT /auth/reset-pwd....");
+        log.info(resetPwdDTO.getTargetId());
+        boolean result = memberService.modifyPwd(resetPwdDTO);
+        if (!result) {
+            log.error("비밀번호 변경 중 오류 발생");
+            return ResponseEntity.badRequest().build();
+        }
+        session.setAttribute("resetPwdProcessCompleted", true);
+        log.info("비밀번호 변경 완료");
+        UserDetailDTO user = memberService.getUserById(resetPwdDTO.getTargetId());
+        return ResponseEntity.ok(user);
+    }
 }
