@@ -69,6 +69,9 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     public boolean registerUser(UserDetailDTO userDetailDTO) {
+        if (memberMapper.existsId(userDetailDTO.getUserId())) {
+            return false;
+        }
         String userPwd = userDetailDTO.getUserPwd();
         userDetailDTO.setUserPwd(passwordEncoder.encode(userPwd));
         int affected = memberMapper.insertUser(userDetailDTO);
