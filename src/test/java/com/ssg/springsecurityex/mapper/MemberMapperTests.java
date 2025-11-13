@@ -60,6 +60,14 @@ public class MemberMapperTests {
     }
 
     @Test
+    @DisplayName("로그인할 회원 아이디에 해당하는 회원정보 불러오기")
+    public void testSelectLoginUser() {
+        String userId = "company_good";
+        UserVO userVO = memberMapper.selectLoginUser(userId);
+        Assertions.assertNotNull(userVO);
+    }
+
+    @Test
     @DisplayName("현재 회원권한이 창고관리자인 회원정보를 조회")
     public void testSelectManagerById() {
         String userId = "manager_kim";
@@ -91,7 +99,7 @@ public class MemberMapperTests {
     @DisplayName("입력한 이메일, 사업자등록번호에 해당하는 거래처 아이디 찾기")
     public void testFindCompanyId() {
         String userCode = "123-45-67890";
-        String userEmail = "tester2@test.com";
+        String userEmail = "ceo1@meowcoffee.com";
         FindIDDTO findIDDTO = FindIDDTO.builder()
                 .targetRole(UserRole.COMPANY.getRoleName())
                 .userCode(userCode)
@@ -99,22 +107,22 @@ public class MemberMapperTests {
                 .build();
 
         FindIDResultDTO found = memberMapper.findUserId(findIDDTO);
-        Assertions.assertEquals("tester2", found.getUserId());
+        Assertions.assertEquals("coffeebiz01", found.getUserId());
         Assertions.assertEquals(UserRole.COMPANY, found.getUserRole());
     }
 
     @Test
     @DisplayName("입력한 이름, 이메일에 해당하는 창고관리자 아이디 찾기")
     public void testFindManagerId() {
-        String userName = "김철수";
-        String userEmail = "tester3@test.com";
+        String userName = "최출고";
+        String userEmail = "manager.choi@wms.com";
         FindIDDTO findIDDTO = FindIDDTO.builder()
                 .targetRole(UserRole.MANAGER.getRoleName())
                 .userName(userName)
                 .userEmail(userEmail)
                 .build();
         FindIDResultDTO found = memberMapper.findUserId(findIDDTO);
-        Assertions.assertEquals("tester3", found.getUserId());
+        Assertions.assertEquals("manager_choi", found.getUserId());
         Assertions.assertEquals(UserRole.MANAGER, found.getUserRole());
     }
 
@@ -160,7 +168,7 @@ public class MemberMapperTests {
     @DisplayName("새로운 거래처 회원 등록")
     public void testInsertUser() {
         UserDetailDTO newUser = UserDetailDTO.builder()
-                .userId("company5678")
+                .userId("company123456")
                 .userPwd("123456")
                 .userCompanyName("이디야")
                 .userName("홍길동")

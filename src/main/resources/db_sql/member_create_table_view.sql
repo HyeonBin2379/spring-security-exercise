@@ -137,6 +137,60 @@ VALUES
 ('company_kitchen', 'hashed_password_placeholder', '(주)키친아트', '한주방', '010-6666-2222', 'kitchen@art.com', '420-82-77777', '경기도 파주시', '공단 1로', 'C:\\study\\meowcoffeeFile\\profiles\\profile_company_kitchen_420-82-77777.jpg', 'COMPANY', 'APPROVAL', '2023-12-10', '2025-11-02', NULL);
 
 
+-- 더미데이터2
+INSERT INTO users (
+    userId, userPwd, userCompanyName, userName, userPhone, userEmail, userCode,
+    userRoadAddr, userDetailAddr, userJoinDate, userRole, userStatus,
+    userLastLogin, userImgPath, vehicleId
+) VALUES
+-- 거래처 회원
+('coffeebiz01', 'hashedPwd1!', '메오커피', '김대표', '010-1234-5678', 'ceo1@meowcoffee.com', '123-45-67890',
+ '서울시 강남구 테헤란로 123', '101호', '2025-01-10', 'COMPANY', 'APPROVAL',
+ '2025-11-06', 'C:\\study\\meowcoffeeFile\\profiles\\profile_coffeebiz01_123-45-67890', NULL),
+
+('coffeebiz02', 'hashedPwd2@', '블루빈스', '이대표', '010-2345-6789', 'ceo2@bluebeans.co.kr', '234-56-78901',
+ '서울시 마포구 월드컵북로 45', '3층', NULL, 'COMPANY', 'WAITING_APPROVAL',
+ NULL, NULL, NULL),
+
+-- 창고 관리자
+('manager01', 'hashedPwd3#', NULL, '박관리자', '010-3456-7890', 'manager1@meowcoffee.com', 'MAN-00-00001',
+ '경기도 성남시 분당구 판교로 242', 'A동 5층', '2025-03-15', 'MANAGER', 'APPROVAL',
+ '2025-11-05', 'C:\\study\\meowcoffeeFile\\profiles\\profile_manager01_MAN-00-00001', NULL),
+
+('manager02', 'hashedPwd4$', NULL, '최관리자', '010-4567-8901', 'manager2@meowcoffee.com', 'MAN-00-00002',
+ '서울시 송파구 중대로 12', '2층', NULL, 'MANAGER', 'WAITING_APPROVAL',
+ NULL, NULL, NULL),
+
+-- 총관리자
+('admin01', 'hashedPwd5%', NULL, '정총관리자', '010-5678-9012', 'admin@meowcoffee.com', 'ADM-00-00001',
+ '서울시 종로구 세종대로 175', '본관 7층', '2024-12-01', 'ADMIN', 'APPROVAL',
+ '2025-11-06', 'C:\\study\\meowcoffeeFile\\profiles\\profile_admin01_ADM-00-00001', NULL),
+
+-- 배송기사
+('delivery01', 'hashedPwd6^', NULL, '이배송', '010-6789-0123', 'delivery1@meowcoffee.com', 'DEL-00-00001',
+ '경기도 고양시 일산서구 중앙로 100', '1층 물류센터', '2025-06-20', 'DELIVERYMAN', 'APPROVAL',
+ '2025-11-04', 'C:\\study\\meowcoffeeFile\\profiles\\profile_delivery01_DEL-00-00001', '55가1001'),
+
+('delivery02', 'hashedPwd7&', NULL, '김배송', '010-7890-1234', 'delivery2@meowcoffee.com', 'DEL-00-00002',
+ '인천시 부평구 경원대로 200', '지하 1층', NULL, 'DELIVERYMAN', 'WAITING_APPROVAL',
+ NULL, NULL, '55나2002'),
+
+-- 휴면 상태 회원
+('coffeebiz03', 'hashedPwd8*', '카페봄날', '정대표', '010-8901-2345', 'ceo3@springcafe.kr', '345-67-89012',
+ '부산시 해운대구 해운대로 321', '2층', '2023-11-01', 'COMPANY', 'DEACTIVATED',
+ '2024-12-31', 'C:\\study\\meowcoffeeFile\\profiles\\profile_coffeebiz03_345-67-89012', NULL),
+
+-- 승인대기 중인 관리자
+('manager03', 'hashedPwd9(', NULL, '한관리자', '010-9012-3456', 'manager3@meowcoffee.com', 'MAN-00-00003',
+ '대전시 유성구 대학로 99', '연구동 3층', NULL, 'MANAGER', 'WAITING_APPROVAL',
+ NULL, NULL, NULL),
+
+-- 휴면대기 중인 배송기사 (vehicleId를 '55다3003'으로 수정)
+('delivery03', 'hashedPwd10)', NULL, '오배송', '010-0123-4567', 'delivery3@meowcoffee.com', 'DEL-00-00003',
+ '광주시 북구 무등로 88', '물류센터 2층', '2024-08-15', 'DELIVERYMAN', 'WAITING_DEACTIVATE',
+ '2025-10-28', 'C:\\study\\meowcoffeeFile\\profiles\\profile_delivery03_DEL-00-00003', '55다3003');;
+
+
 
 # vehicles 테이블의 기본키를 참조하는 외래키를 users에 추가
 ALTER TABLE users ADD CONSTRAINT FK_vehicles_TO_users FOREIGN KEY (vehicleId)

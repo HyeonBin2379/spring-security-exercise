@@ -92,6 +92,11 @@
     limit #{cri.skip}, #{cri.amount}
   </select>
 
+  <select id="selectLoginUser" resultMap="userResultMap">
+    select * from users
+    where userId = #{userId} and userStatus = 'APPROVAL'
+  </select>
+
   <select id="getCount" resultType="int">
     select count(userId) from users
     <include refid="search"/>
@@ -167,25 +172,35 @@
 
   <update id="updateUser">
     update users
-    set userPwd = #{userInfo.userPwd}
-    <if test="#{userInfo.userEmail} != null">
-      , userEmail = #{userInfo.userEmail}
-    </if>
-    <if test="#{userInfo.userPhone} != null">
-      , userPhone = #{userInfo.userPhone}
-    </if>
-    <if test="#{userInfo.userImgPath} != null">
-      , userImgPath = #{userInfo.userImgPath}
-    </if>
+    <set>
+      userPwd = #{userInfo.userPwd}
+      <if test="#{userInfo.userEmail} != null">
+        , userEmail = #{userInfo.userEmail}
+      </if>
+      <if test="#{userInfo.userPhone} != null">
+        , userPhone = #{userInfo.userPhone}
+      </if>
+      <if test="#{userInfo.userImgPath} != null">
+        , userImgPath = #{userInfo.userImgPath}
+      </if>
+    </set>
     where userId = #{userInfo.userId}
+  </update>
+
+  <update id="updateLoginTime">
+    update users
+    set userLastLoginTime = now()
+    where userId = #{userId} and userStatus = 'APPROVAL'
   </update>
 
   <update id="updateUserStatus">
     update users
-    set userStatus = #{userStat.userStatus}
-    <if test="#{userStat.userStatus == 'APPROVAL'}">
-      , userJoinDate = now()
-    </if>
+    <set>
+      userStatus = #{userStat.userStatus}
+      <if test="#{userStat.userStatus} == 'APPROVAL'">
+        , userJoinDate = now()
+      </if>
+    </set>
     where userId = #{userStat.userId}
   </update>
 
