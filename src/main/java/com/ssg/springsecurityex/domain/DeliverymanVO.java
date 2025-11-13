@@ -16,6 +16,7 @@ public class DeliverymanVO {
     private String delivName;
     private String delivPwd;
     private String delivPhone;
+    private String delivEmail;
     private String delivCode;
     private String delivImgPath;
     private String delivVhcId;
